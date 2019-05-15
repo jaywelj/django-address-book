@@ -1,9 +1,15 @@
 {% extends 'address_book/base.html' %}
 {% load crispy_forms_tags %}
 {% block container %}
-	<form method=post>
-		{% csrf_token %}
-		{{ form|crispy }}
-		<input type="submit" class="btn btn-primary float-right" value="Confirm" />
-	</form>
+	<div class="col-md-6 offset-md-3">
+		<hr>
+			<h1 class="d-inline-block">Login!</h1>
+			<small class="text-muted float-right"> You don't have an account? <a href="{% url 'register' %}">Sign up!</a></small>
+		<hr>
+		<form method=post>
+			{% csrf_token %}
+			{{ form|crispy }}
+			<input type="submit" class="btn btn-primary float-right" value="Confirm" />
+		</form>
+	</div>
 {% endblock %} 

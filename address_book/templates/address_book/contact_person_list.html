@@ -21,18 +21,16 @@
 		</thead>
 		<tbody>
 			{% for contact_person in contact_persons %}
-				{% if contact_person.user == user %}
-					<tr>
-						<td>{{ contact_person.first_name }}</td>
-						<td>{{ contact_person.last_name }}</td>
-						<td>{{ contact_person.contact_number }}</td>
-						<td>{{ contact_person.address }}</td>
-						<td>
-							<a class="btn btn-outline-warning btn-sm" href="{% url 'contact_person_edit' pk=contact_person.pk %}" title="edit"><span class="oi oi-pencil"></span></a>
-							<a class="btn btn-outline-danger btn-sm" href="{% url 'contact_person_delete'  pk=contact_person.pk %}" title="delete"><span class="oi oi-trash"></span></a>
-						</td>
-					</tr>
-				{% endif %}
+				<tr>
+					<td>{{ contact_person.first_name }}</td>
+					<td>{{ contact_person.last_name }}</td>
+					<td>{{ contact_person.contact_number }}</td>
+					<td>{{ contact_person.address }}</td>
+					<td>
+						<a class="btn btn-outline-warning btn-sm" href="{% url 'contact_person_edit' pk=contact_person.pk %}" title="edit"><span class="oi oi-pencil"></span></a>
+						<a class="btn btn-outline-danger btn-sm" href="{% url 'contact_person_delete'  pk=contact_person.pk %}" title="delete"><span class="oi oi-trash"></span></a>
+					</td>
+				</tr>
 			{% endfor %}
 		</tbody>
 	</table>

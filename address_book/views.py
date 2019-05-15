@@ -2,21 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
 from django.template import Context, loader
+from django.contrib.auth.decorators import login_required
 
 import csv, logging
-
 
 from .models import ContactPerson
 from .forms import RegisterForm, ContactPersonForm
 
 
+@login_required
 def contact_person_list(request):
-	contact_persons = ContactPerson.objects.all()
+	contact_persons = ContactPerson.objects.filter(user=request.user)
 	template = "address_book/contact_person_list.html"
 	context = {"contact_persons": contact_persons}
 
 	return render(request, template, context)
 
+@login_required
 def contact_person_add(request):
 	if request.method == "POST":
 		form = ContactPersonForm(request.POST)
@@ -35,6 +37,7 @@ def contact_person_add(request):
 
 	return render(request, template, context)
 
+@login_required
 def contact_person_edit(request, pk):
 	contact_person = get_object_or_404(ContactPerson, pk=pk)
 	if request.method == "POST":
@@ -52,6 +55,7 @@ def contact_person_edit(request, pk):
 
 	return render(request, template, context)
 
+@login_required
 def contact_person_delete(request, pk):
 	contact_person = get_object_or_404(ContactPerson, pk=pk)
 	if request.method == "POST":
@@ -64,6 +68,7 @@ def contact_person_delete(request, pk):
 
 	return render(request, template, context)	
 
+@login_required
 def contact_person_import(request):
 	if request.method == "POST":
 		try:
@@ -118,7 +123,7 @@ def contact_person_import(request):
 	template = "address_book/contact_person_import.html"
 	return render(request, template)
 		
-
+@login_required
 def contact_person_export(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
@@ -139,9 +144,7 @@ def contact_person_export(request):
 	    	contact_person.contact_number,
 	    	contact_person.address,
 	    ])
-
     return response
-
 
 def register(request):
 	if request.method == "POST":

@@ -1,6 +1,9 @@
 {% extends 'address_book/base.html' %}
 {% load crispy_forms_tags %}
 {% block container %}
+	<hr>
+		<h1 class="d-inline-block">Add New Contact Person</h1>
+	<hr>
 	<form method=post>
 		{% csrf_token %}
 		{{ form|crispy }}
