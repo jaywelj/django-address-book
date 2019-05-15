@@ -1,0 +1,39 @@
+{% extends "address_book/base.html" %}
+{% load static %}
+{% block container %}
+	<div class="header">
+		<hr>
+		<h1 class="d-inline-block">Contact Person List</h1>
+		<a class="btn btn-outline-dark btn-lg float-right mr-1" href="{% url 'contact_person_export' %}">CSV Export</a>
+		<a class="btn btn-outline-dark btn-lg float-right mr-1" href="{% url 'contact_person_import' %}">CSV Import</a>
+		<a class="btn btn-outline-dark btn-lg float-right mr-1" href="{% url 'contact_person_add' %}">Add</a>
+		<hr>
+	</div>
+	<table class="table table-hover table-sm text-center">
+		<thead class="thead-dark">
+			<tr>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Contact Number</th>
+				<th>Address</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for contact_person in contact_persons %}
+				{% if contact_person.user == user %}
+					<tr>
+						<td>{{ contact_person.first_name }}</td>
+						<td>{{ contact_person.last_name }}</td>
+						<td>{{ contact_person.contact_number }}</td>
+						<td>{{ contact_person.address }}</td>
+						<td>
+							<a class="btn btn-outline-warning btn-sm" href="{% url 'contact_person_edit' pk=contact_person.pk %}" title="edit"><span class="oi oi-pencil"></span></a>
+							<a class="btn btn-outline-danger btn-sm" href="{% url 'contact_person_delete'  pk=contact_person.pk %}" title="delete"><span class="oi oi-trash"></span></a>
+						</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

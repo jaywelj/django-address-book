@@ -1,0 +1,19 @@
+{% extends "address_book/base.html" %}
+{% load static %}
+{% block container %}
+	<div class="card text-center mt-5">
+		<div class="card-header">
+			<h2>Upload CSV File to Import</h2>
+		</div>
+		<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+			<div class="card-body">
+				<input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+			</div>
+			<div class="card-footer text-muted">
+				<input type="submit" class="btn btn-danger" value="UPLOAD" />
+				<a href="/" class="btn btn-dark">CANCEL</a>
+			</div>
+		</form>
+	</div>
+{% endblock %}

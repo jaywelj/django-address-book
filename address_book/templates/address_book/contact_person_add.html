@@ -1,0 +1,11 @@
+{% extends 'address_book/base.html' %}
+{% load crispy_forms_tags %}
+{% block container %}
+	<form method=post>
+		{% csrf_token %}
+		{{ form|crispy }}
+		<a href="/" class="btn btn-dark float-right">BACK</a>
+		<input type="submit" class="btn btn-primary float-right" value="Confirm" value="SAVE" />
+		
+	</form>
+{% endblock %} 

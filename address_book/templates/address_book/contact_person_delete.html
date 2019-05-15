@@ -1,0 +1,22 @@
+{% extends "address_book/base.html" %}
+{% load static %}
+{% block container %}
+	<div class="card text-center mt-5">
+		<div class="card-header">
+			<h2>Deletion of Record!</h2>
+		</div>
+		<div class="card-body">
+			<p class="card-text">Are you sure you want to delete contact person <strong>{{ contact_person }}?</strong></p>
+
+			<h5 class="card-title"></h5>
+			
+		</div>
+		<div class="card-footer text-muted">
+			<form method=post>
+				{% csrf_token %}
+				<input type="submit" class="btn btn-danger" value="CONFIRM" />
+			<a href="/" class="btn btn-dark">CANCEL</a>
+			</form>
+		</div>
+	</div>
+{% endblock %}
