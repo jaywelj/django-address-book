@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.http import HttpResponse
 from django.template import Context, loader
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 import csv, logging
 
@@ -75,16 +76,17 @@ def contact_person_import(request):
 			csv_file = request.FILES["csv_file"]
 			if not csv_file.name.endswith('.csv'):
 				messages.error(request,'File is not CSV type')
-				# return redirect("contact_person_import")
+				return redirect("contact_person_import")
 			#if file is too large, return
 			if csv_file.multiple_chunks():
-				# messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size/(1000*1000),))
+				messages.error(request,"Uploaded file is too big (%.2f MB)." % (csv_file.size/(1000*1000),))
 				return redirect("contact_person_import")
 
 			file_data = csv_file.read().decode("utf-8")		
 
 			lines = file_data.split("\n")
-			#loop over the lines and save them in db. If error , store as string and then display
+			
+			#loop over the lines to get header as key 
 			for line in lines:						
 				fields = line.split(",")
 				header1 = fields[0]
@@ -94,6 +96,7 @@ def contact_person_import(request):
 				break
 			del lines[0]
 
+			#loop over the lines and save them in db
 			for line in lines:						
 				fields = line.split(",")
 				data_dict = {}
@@ -111,11 +114,12 @@ def contact_person_import(request):
 						form.save()				
 													
 				except Exception as e:
+					messages.error(request,'Please check if your CSV format is correct')
 					logging.getLogger("error_logger").error(repr(e))					
 					pass
 
 		except Exception as e:
-			print("error")
+			messages.error(request,'An error with your CSV file')
 			pass
 		
 		return redirect("contact_person_list")	

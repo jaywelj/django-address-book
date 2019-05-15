@@ -8,7 +8,7 @@ class ContactPerson(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	first_name = models.CharField(max_length=35)
 	last_name = models.CharField(max_length=35)
-	contact_number = PhoneNumberField(unique=True)
+	contact_number = PhoneNumberField()
 	address = models.TextField()
 
 	def __str__(self):
