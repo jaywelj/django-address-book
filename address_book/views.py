@@ -97,14 +97,14 @@ def contact_person_import(request):
 			del lines[0]
 
 			#loop over the lines and save them in db
-			for line in lines:						
+			for line in lines:
+				print(line)					
 				fields = line.split(",")
 				data_dict = {}
 				data_dict[header1] = fields[0]
 				data_dict[header2] = fields[1]
 				data_dict[header3] = fields[2]
 				data_dict[header4[:-1]] = fields[3]
-				print(data_dict)
 
 				try:
 					form = ContactPersonForm(data_dict)
