@@ -20,12 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'uqlka!bu$0v8468wx-%7r_4qxy7v8(_a___^82hlxj@lqcn&&z'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'django-address-book.herokuapp.com',
+]
 
 
 # Application definition
@@ -79,11 +82,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dfr2uiodajv9qf',
-        'USER': 'xttmmrlgxdpbje',
-        'PASSWORD': '81ad95276da76ba7cd2e2fe51c4bdd09e7150654948e14c0ae5cf525d113d73b',
-        'HOST': 'ec2-3-231-48-230.compute-1.amazonaws.com',
-        'PORT': '5432',
+        'NAME': os.environ.get("AB_HEROKU_DB_NAME"),
+        'USER': os.environ.get("AB_HEROKU_DB_USER"),
+        'PASSWORD': os.environ.get("AB_HEROKU_DB_PASSWORD"),
+        'HOST': os.environ.get("AB_HEROKU_DB_HOST"),
+        'PORT': os.environ.get("AB_HEROKU_DB_PORT"),
     }
 }
 
