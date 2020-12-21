@@ -1,1 +1,1 @@
-web: gunicorn "django-address-book.wsgi"
+web: gunicorn mysite.wsgi
