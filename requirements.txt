@@ -1,4 +1,4 @@
-Babel==2.6.0
+Babel==2.9.1
 Django==2.2
 django-crispy-forms==1.7.2
 django-phonenumber-field==2.4.0
